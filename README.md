@@ -41,11 +41,10 @@ abarrotes-pos/
 ├─ README.md                        # Este documento
 ├─ requirements.txt                 # Dependencias python
 ├─ docs/                            # Archivos complementarios
-├─ data/                            # Base de datos
+├─ database/                            # Base de datos
 ├─ src/                             # Codigo del proyecto
 │  ├─ main.py                       # Punto de entrada de la app
 │  ├─ config.py                     # Configuraciones/Rutas etc..
-│  ├─ database/                     # Conexion a la db
 │  ├─ models/                       # MODELO (clases y consultas SQL)
 │  ├─ controllers/                  # CONTROLADOR (lógica de la app)
 │  └─ views/                        # VISTA (UI interfaz grafica)
