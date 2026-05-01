@@ -43,11 +43,13 @@ abarrotes-pos/
 ├─ docs/                            # Archivos complementarios
 ├─ database/                        # Base de datos
 ├─ src/                             # Codigo del proyecto
-│  ├─ main.py                       # Punto de entrada de la app
-│  ├─ config.py                     # Configuraciones/Rutas etc..
-│  ├─ models/                       # MODELO (clases y consultas SQL)
-│  ├─ controllers/                  # CONTROLADOR (lógica de la app)
-│  └─ views/                        # VISTA (UI interfaz grafica)
+│  |─ main.py                       # Punto de entrada de la app
+│  |─ config.py                     # Configuraciones/Rutas etc..
+│  |─ models/                       # MODELO (clases y consultas SQL)
+│  |─ controllers/                  # CONTROLADOR (lógica de la app)
+│  |─ views/                        # VISTA (UI interfaz grafica)
+│  |─ images/                       # Imagenes para la UI
+│  |─ pyqt_designer/                # Archivos de pyqt_designer
 ```
 
 ---
