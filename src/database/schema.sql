@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   username    TEXT NOT NULL UNIQUE,
   password    TEXT NOT NULL,
   rol         TEXT NOT NULL CHECK (rol IN ('ADMIN', 'CAJERO')),
-  estado      INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1))
+  estado      INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)) -- 0 desactivado | 1 activado
 );
 
 CREATE TABLE IF NOT EXISTS logs (
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS categorias (
   id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,
   nombre       TEXT NOT NULL UNIQUE,
   descripcion  TEXT,
-  estado       INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1))
+  estado       INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)) -- 0 desactivado | 1 activado
 );
 
 CREATE TABLE IF NOT EXISTS productos (
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS productos (
   descripcion   TEXT,
   stock         INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0),
   stock_minimo  INTEGER NOT NULL DEFAULT 0 CHECK (stock_minimo >= 0),
-  estado        INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)),
+  estado        INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)), -- 0 desactivado | 1 activado
   FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
     ON UPDATE CASCADE ON DELETE RESTRICT
 );
@@ -44,16 +44,16 @@ CREATE TABLE IF NOT EXISTS clientes (
   id_cliente  INTEGER PRIMARY KEY AUTOINCREMENT,
   nombre      TEXT NOT NULL,
   direccion   TEXT,
-  telefono    TEXT,
-  estado      INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1))
+  telefono    TEXT NOT NULL,
+  estado      INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)) -- 0 desactivado | 1 activado
 );
 
 CREATE TABLE IF NOT EXISTS proveedores (
   id_proveedor INTEGER PRIMARY KEY AUTOINCREMENT,
   nombre       TEXT NOT NULL,
   direccion    TEXT,
-  telefono     TEXT,
-  estado       INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1))
+  telefono     TEXT NOT NULL,
+  estado       INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)) -- 0 desactivado | 1 activado
 );
 
 CREATE TABLE IF NOT EXISTS ventas (
@@ -62,7 +62,6 @@ CREATE TABLE IF NOT EXISTS ventas (
   id_cliente  INTEGER,
   fecha_hora  TEXT NOT NULL DEFAULT (datetime('now')),
   total       REAL NOT NULL DEFAULT 0 CHECK (total >= 0),
-  estado      INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)),
   FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
     ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
@@ -82,6 +81,7 @@ CREATE TABLE IF NOT EXISTS detalle_ventas (
     ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
+-- Crea indices para acelerar consultas y optimizar el rendimiento
 CREATE INDEX IF NOT EXISTS idx_logs_id_usuario ON logs(id_usuario);
 CREATE INDEX IF NOT EXISTS idx_ventas_fecha_hora ON ventas(fecha_hora);
 CREATE INDEX IF NOT EXISTS idx_detalle_ventas_id_venta ON detalle_ventas(id_venta);
