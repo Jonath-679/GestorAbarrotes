@@ -35,21 +35,21 @@ Este proyecto busca reemplazar esos métodos tradicionales por una solución **d
 
 ## 📁 Estructura general del proyecto
 ```
-abarrotes-pos/
-├─ .venv                            # Entorno virtual python
-├─ .gitignore                       # Cosas que no se van a subir
-├─ README.md                        # Este documento
-├─ requirements.txt                 # Dependencias python
-├─ docs/                            # Archivos complementarios
-├─ database/                        # Base de datos
-├─ src/                             # Codigo del proyecto
-│  |─ main.py                       # Punto de entrada de la app
-│  |─ config.py                     # Configuraciones/Rutas etc..
-│  |─ models/                       # MODELO (clases y consultas SQL)
-│  |─ controllers/                  # CONTROLADOR (lógica de la app)
-│  |─ views/                        # VISTA (UI interfaz grafica)
-│  |─ images/                       # Imagenes para la UI
-│  |─ pyqt_designer/                # Archivos de pyqt_designer
+|─ .venv/                           # Entorno virtual python
+|─ .gitignore                       # Cosas que no se van a subir
+|─ README.md                        # Este documento
+|─ requirements.txt                 # Dependencias python
+|─ docs/                            # Documentacion y archivos complementarios
+|─ data/                            # Base de datos
+|─ src/                             # Codigo del proyecto
+|  |─ main.py                       # Punto de entrada de la app
+|  |─ config.py                     # Configuraciones/Rutas etc..
+|  |─ models/                       # MODELO (Acceso a los datos de las entidades)
+|  |─ controllers/                  # CONTROLADOR (lógica de la app)
+|  |─ views/                        # VISTA (UI interfaz grafica)
+|  |─ database/                     # Conexion a la base de datos
+|  |─ images/                       # Imagenes para la UI
+|  |─ pyqt_designer/                # Archivos de pyqt_designer
 ```
 
 ---
