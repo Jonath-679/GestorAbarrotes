@@ -1,23 +1,21 @@
 import sqlite3
-from pathlib import Path
+from config import DB_PATH
 
-# Carpeta raíz del proyecto (…/src/database/connection.py -> raíz)
-BASE_DIR = Path(__file__).resolve().parents[2]
-
-# Ruta de la base de datos SQLite
-DB_PATH = BASE_DIR / "data" / "abarrotes.sqlite3"
-
+_conn = None # Conexion (unica) a la db
 
 def get_connection() -> sqlite3.Connection:
-    """
-    Retorna una conexión a la base de datos con foreign keys activadas.
-    Úsala así:
-        with get_connection() as conn:
-            ...
-    """
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    """Devuelve una conexión única (compartida) para toda la app."""
+    global _conn
+    if _conn is None:
+        _conn = sqlite3.connect(DB_PATH)
+        _conn.row_factory = sqlite3.Row # permite acceder a columnas por nombre | row["nombre"] | en vez de indíce
+        _conn.execute("PRAGMA foreign_keys = ON;")
+    return _conn
 
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row  # permite acceder a columnas por nombre: row["nombre"]
-    conn.execute("PRAGMA foreign_keys = ON;")
-    return conn
+def close_connection() -> None:
+    """Cierra la conexión compartida (llamar al salir de la app)."""
+    global _conn
+    if _conn is not None:
+        _conn.close()
+        _conn = None
+        
