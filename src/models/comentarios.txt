@@ -1,0 +1,4 @@
+las funciones modificar que retornen los resultados ordenados por ACTIVOS y despues los inactivos, 
+ya el controlador decidira si muestra los inactivos
+
+para las claves de los diccionarios tratar de apegarme a los nombres como aparece en el schema.sql

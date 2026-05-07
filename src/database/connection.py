@@ -1,6 +1,7 @@
 import sqlite3
-from config import DB_PATH
+from config import DB_EJEMPLO_PATH
 
+DB_PATH = DB_EJEMPLO_PATH # La base de datos usada es la de ejemplo
 _conn = None # Conexion (unica) a la db
 
 def get_connection() -> sqlite3.Connection:
