@@ -1,13 +1,147 @@
-from database.connection import get_connection
+from src.database.connection import get_connection
 
-# Registra un usuario | retorna (True, None) o (False, "mensaje")
 def registrar_usuario(datos: dict):
-    pass
+    """
+    Inserta un nuevo registro en la tabla usuarios
+    -- Deben estar todos los datos (excepto id_usuario)-(ninguno es opcional)
 
-# Modifica los datos de un usuario | retorna (True, None) o (False, "mensaje")
-def modificar_usuario(id_usuario: int, datos: dict):
-    pass
+    Args:
+        datos (dict): Todos los datos a registrar (nombre, username, password, rol, estado)
+    Returns:
+        Si todo sale bien: (True, None)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "INSERT INTO usuarios (nombre, username, password, rol, estado) values (?, ?, ?, ?, ?)"
+        values = (datos["nombre"], datos["username"], datos["password"], datos["rol"], datos["estado"])
+        cursor.execute(sql_prompt, values)
+        conexion.commit()
+    except Exception as e:
+        return (False, f"Error: {e}")
+    else:
+        return (True, None)
+     
+def modificar_usuario(username: str, datos: dict):
+    """
+    Modifica valores de un registro en la tabla usuarios
+    -- el usuario debe existir en la DB
 
-# Retorna (True, datos_usuario) o (False, "mensaje")
+    Args:
+        username: nombre de usuario
+        datos (dict): Todos los datos a modificar (debe haber al menos un campo)
+    Returns:
+        Si todo sale bien: (True, None)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        if not datos: # Validacion de contenido en datos: dict
+            return (False, "Error: no hay ningun campo a modificar")
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "UPDATE usuarios SET"
+        values = []
+        # Construir sql_prompt y sus valores
+        for key, value in datos.items():
+            sql_prompt += f" {key} = ?,"
+            values.append(value)
+        sql_prompt = sql_prompt[:-1] # Remueve la ultima coma ,
+        sql_prompt += f" WHERE username = ?"
+        values.append(username)
+        # Ejecutar sql_prompt + guardar
+        cursor.execute(sql_prompt, tuple(values))
+        conexion.commit()
+    except Exception as e:
+        return (False, f"Error: {e}")
+    else:
+        return (True, None)
+
 def validar_inicio_sesion(username: str, password: str):
-    pass
+    """
+    Valida que la contraseña corresponde a la del username
+    -- el usuario debe existir en la DB
+
+    Args:
+        username: nombre de usuario
+        password: contraseña
+    Returns:
+        Si todo sale bien y el password es correcto: (True, True)
+        Si todo sale bien y el password es incorrecto: (True, False)
+        Si username no existe: (False, "Error: el username no existe en la db")
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "SELECT password from usuarios WHERE username = ?"
+        cursor.execute(sql_prompt, (username,))
+        row = cursor.fetchone()
+        if row is None: # Usuario inexistente
+            return (False, "Error: el username no existe en la db")
+        real_password = row[0]
+        if real_password == password:
+            return (True, True)
+        else:
+            return (True, False)
+    except Exception as e:
+        return (False, f"Error: {e}")
+
+######################### PRUEVAS #########################
+
+if __name__ == "__main__":
+
+    # registrar_usuario()
+    """
+    datos = {}
+    nombre = input("Nombre: ")
+    datos["nombre"] = nombre
+    username = input("Username: ")
+    datos["username"] = username
+    password = input("Password: ")
+    datos["password"] = password
+    rol = input("ROL(ADMIN, CAJERO): ")
+    datos["rol"] = rol
+    estado = int(input("Estado(1 or 0): "))
+    datos["estado"] = estado
+
+    status, value = registrar_usuario(datos)
+    if not status:
+        print(value)
+    else:
+        print("Registro exitoso")
+    """
+
+    # modificar_usuario()
+    """
+    datos = {}
+    username = input("Username: ")
+    datos["username"] = username
+    password = input("Password: ")
+    datos["password"] = password
+    rol = input("ROL(ADMIN, CAJERO): ")
+    datos["rol"] = rol
+    estado = int(input("Estado(1 or 0): "))
+    datos["estado"] = estado
+
+    status, value = modificar_usuario(username, datos)
+    if not status:
+        print(value)
+    else:
+        print("Edicion exitosa")
+    """
+
+    # validar_inicio_sesion()
+    """
+    username = input("Username: ")
+    password = input("Password: ")
+
+    status, value = validar_inicio_sesion(username, password)
+
+    if not status:
+        print(value)
+    elif value == True:
+        print("Contraseña correcta carnal")
+    else:
+        print("Contraseña incorrecta carnal")
+    """
