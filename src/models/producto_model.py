@@ -83,10 +83,32 @@ def actualizar_stock(codigo: str, stock: int):
     else:
         return (True, None)
 
-# Retorna (True, tupla_de_dicts) o (False, "mensaje")
-# criterio_busqueda es lo que hay en la barra de busqueda | nombre, codigo, o categoria | si esta vacio retorna todo los productos
 def buscar_producto(criterio_busqueda: str):
-    pass
+    """
+    Busca todos los registros en la tabla productos que cumplan con el criterio de busqueda
+
+    Args:
+        criterio_busqueda: es lo que hay en la barra de busqueda
+            si esta vacio retornara todos los registros de la tabla productos
+            si tiene contenido, se buscaran por nombre, id_categoria y codigo
+    Returns:
+        Si todo sale bien: (True, tupla_de_diccionarios)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = ""
+        if not criterio_busqueda:
+            sql_prompt = "SELECT * from productos"
+            cursor.execute(sql_prompt)
+        else:
+            sql_prompt = "SELECT * from productos WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR codigo LIKE '%' || ? || '%' COLLATE NOCASE OR CAST(id_categoria AS TEXT) LIKE '%' || ? || '%' COLLATE NOCASE"
+            cursor.execute(sql_prompt, (criterio_busqueda, criterio_busqueda, criterio_busqueda))
+        productos = tuple(dict(row) for row in cursor.fetchall())
+        return (True, productos)
+    except Exception as e:
+        return (False, f"Error: {e}")
 
 def consultar_stock(codigo: str):
     """
@@ -110,3 +132,20 @@ def consultar_stock(codigo: str):
         return (True, row[0])
     except Exception as e:
         return (False, f"Error: {e}")
+
+######################### PRUEVAS #########################
+
+if __name__ == "__main__":
+
+    # buscar_producto()
+    criterio = input("Barra_busqueda: ")
+
+    status, productos = buscar_producto(criterio)
+
+    if not status:
+        print(productos)
+    elif not productos:
+        print("Sin resultados")
+    else:
+        for producto in productos:
+            print(producto)

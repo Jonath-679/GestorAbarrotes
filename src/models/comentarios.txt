@@ -6,3 +6,7 @@ ya el controlador decidira si muestra los inactivos
 para las claves de los diccionarios apegarme a los nombres como aparece en el schema.sql
 
 en el modelo de reportes se va agenerar un exel con los 4 tipos de reportes que hay en la vista
+- reporte inventario
+- reporte clientes
+- reporte de ventas
+- reporte de empleados/usuarios
