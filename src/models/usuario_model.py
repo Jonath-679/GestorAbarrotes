@@ -3,7 +3,7 @@ from src.database.connection import get_connection
 def registrar_usuario(datos: dict):
     """
     Inserta un nuevo registro en la tabla usuarios
-    -- Deben estar todos los datos (excepto id_usuario)-(ninguno es opcional)
+    -- Deben estar todos los datos (excepto id_usuario)
 
     Args:
         datos (dict): Todos los datos a registrar (nombre, username, password, rol, estado)
@@ -77,7 +77,7 @@ def validar_inicio_sesion(username: str, password: str):
         sql_prompt = "SELECT password FROM usuarios WHERE username = ?"
         cursor.execute(sql_prompt, (username,))
         row = cursor.fetchone()
-        if row is None: # Usuario inexistente
+        if row is None:
             return (False, "Error: el username no existe en la db")
         real_password = row[0]
         if real_password == password:

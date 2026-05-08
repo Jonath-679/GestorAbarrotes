@@ -3,4 +3,6 @@
 las funciones buscar que retornen los resultados ordenados por ACTIVOS y despues los inactivos, 
 ya el controlador decidira si muestra los inactivos
 
-para las claves de los diccionarios tratar de apegarme a los nombres como aparece en el schema.sql
+para las claves de los diccionarios apegarme a los nombres como aparece en el schema.sql
+
+en el modelo de reportes se va agenerar un exel con los 4 tipos de reportes que hay en la vista
