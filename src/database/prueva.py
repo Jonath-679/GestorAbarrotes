@@ -55,25 +55,25 @@ def _seed_data(conn: sqlite3.Connection) -> None:
 	categoria_id = {row[1]: row[0] for row in cur.fetchall()}
 
 	productos = [
-		("Abarrotes", "P-001", "Arroz 1kg", "Arroz extra", 80, 10, 1),
-		("Abarrotes", "P-002", "Frijol 1kg", "Frijol bayo", 60, 10, 1),
-		("Abarrotes", "P-003", "Azucar 1kg", "Azucar refinada", 90, 12, 1),
-		("Abarrotes", "P-004", "Aceite 1L", "Aceite vegetal", 45, 8, 1),
-		("Bebidas", "P-005", "Refresco Cola 600ml", "Cola", 120, 20, 1),
-		("Bebidas", "P-006", "Agua 1L", "Agua purificada", 150, 30, 1),
-		("Limpieza", "P-007", "Detergente 1kg", "Detergente polvo", 40, 6, 1),
-		("Limpieza", "P-008", "Jabon barra", "Jabon multiusos", 70, 10, 1),
-		("Lacteos", "P-009", "Leche entera 1L", "Leche pasteurizada", 110, 15, 1),
-		("Lacteos", "P-010", "Queso 250g", "Queso fresco", 35, 5, 1),
-		("Dulces", "P-011", "Galletas", "Galletas surtidas", 55, 8, 1),
-		("Dulces", "P-012", "Chocolate", "Chocolate barra", 0, 5, 0),
+		("Abarrotes", "P-001", "Arroz 1kg", "Arroz extra", 28.0, 80),
+		("Abarrotes", "P-002", "Frijol 1kg", "Frijol bayo", 30.0, 60),
+		("Abarrotes", "P-003", "Azucar 1kg", "Azucar refinada", 25.0, 90),
+		("Abarrotes", "P-004", "Aceite 1L", "Aceite vegetal", 42.0, 45),
+		("Bebidas", "P-005", "Refresco Cola 600ml", "Cola", 15.0, 120),
+		("Bebidas", "P-006", "Agua 1L", "Agua purificada", 12.0, 150),
+		("Limpieza", "P-007", "Detergente 1kg", "Detergente polvo", 38.0, 40),
+		("Limpieza", "P-008", "Jabon barra", "Jabon multiusos", 10.0, 70),
+		("Lacteos", "P-009", "Leche entera 1L", "Leche pasteurizada", 26.0, 110),
+		("Lacteos", "P-010", "Queso 250g", "Queso fresco", 10.0, 35),
+		("Dulces", "P-011", "Galletas", "Galletas surtidas", 20.0, 55),
+		("Dulces", "P-012", "Chocolate", "Chocolate barra", 10.0, 0),
 	]
 	cur.executemany(
 		"""
 		INSERT INTO productos (
-			id_categoria, codigo, nombre, descripcion, stock, stock_minimo, estado
+			id_categoria, codigo, nombre, descripcion, precio, stock
 		)
-		VALUES (?, ?, ?, ?, ?, ?, ?)
+		VALUES (?, ?, ?, ?, ?, ?)
 		""",
 		[
 			(
@@ -83,7 +83,6 @@ def _seed_data(conn: sqlite3.Connection) -> None:
 				p[3],
 				p[4],
 				p[5],
-				p[6],
 			)
 			for p in productos
 		],
