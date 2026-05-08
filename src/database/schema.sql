@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS productos (
   nombre        TEXT NOT NULL,
   descripcion   TEXT,
   stock         INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0),
-  stock_minimo  INTEGER NOT NULL DEFAULT 0 CHECK (stock_minimo >= 0),
-  estado        INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)), -- 0 desactivado | 1 activado
+  -- stock_minimo  INTEGER NOT NULL DEFAULT 0 CHECK (stock_minimo >= 0),
+  -- estado        INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1)), -- 0 desactivado | 1 activado
   FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
     ON UPDATE CASCADE ON DELETE RESTRICT
 );

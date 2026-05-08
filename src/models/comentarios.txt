@@ -10,3 +10,5 @@ en el modelo de reportes se va agenerar un exel con los 4 tipos de reportes que 
 - reporte clientes
 - reporte de ventas
 - reporte de empleados/usuarios
+
+(deberia agregar en args los detalles de todos los campos??)
