@@ -14,7 +14,7 @@ def registrar_usuario(datos: dict):
     try:
         conexion = get_connection()
         cursor = conexion.cursor()
-        sql_prompt = "INSERT INTO usuarios (nombre, username, password, rol, estado) values (?, ?, ?, ?, ?)"
+        sql_prompt = "INSERT INTO usuarios (nombre, username, password, rol, estado) VALUES (?, ?, ?, ?, ?)"
         values = (datos["nombre"], datos["username"], datos["password"], datos["rol"], datos["estado"])
         cursor.execute(sql_prompt, values)
         conexion.commit()
@@ -74,7 +74,7 @@ def validar_inicio_sesion(username: str, password: str):
     try:
         conexion = get_connection()
         cursor = conexion.cursor()
-        sql_prompt = "SELECT password from usuarios WHERE username = ?"
+        sql_prompt = "SELECT password FROM usuarios WHERE username = ?"
         cursor.execute(sql_prompt, (username,))
         row = cursor.fetchone()
         if row is None: # Usuario inexistente
@@ -84,6 +84,31 @@ def validar_inicio_sesion(username: str, password: str):
             return (True, True)
         else:
             return (True, False)
+    except Exception as e:
+        return (False, f"Error: {e}")
+    
+def validar_usuario(username: str):
+    """
+    Valida si el username existe en la DB
+    
+    Args:
+        username: nombre de usuario
+    Returns:
+        Si existe: (True, True)
+        Si no existe: (True, False)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "SELECT username FROM usuarios WHERE username = ?"
+        cursor.execute(sql_prompt, (username,))
+        row = cursor.fetchone()
+        # Validacion
+        if row: # Existe
+            return (True, True)
+        else: # No existe
+            return (True, False) 
     except Exception as e:
         return (False, f"Error: {e}")
 
@@ -104,7 +129,6 @@ if __name__ == "__main__":
     datos["rol"] = rol
     estado = int(input("Estado(1 or 0): "))
     datos["estado"] = estado
-
     status, value = registrar_usuario(datos)
     if not status:
         print(value)
@@ -123,7 +147,6 @@ if __name__ == "__main__":
     datos["rol"] = rol
     estado = int(input("Estado(1 or 0): "))
     datos["estado"] = estado
-
     status, value = modificar_usuario(username, datos)
     if not status:
         print(value)
@@ -135,9 +158,7 @@ if __name__ == "__main__":
     """
     username = input("Username: ")
     password = input("Password: ")
-
     status, value = validar_inicio_sesion(username, password)
-
     if not status:
         print(value)
     elif value == True:
@@ -145,3 +166,13 @@ if __name__ == "__main__":
     else:
         print("Contraseña incorrecta carnal")
     """
+
+    # validar_usuario()
+    username = input("Username: ")
+    status, value = validar_usuario(username)
+    if not status:
+        print(value)
+    elif value:
+        print("Si existe xd")
+    else:
+        print("No existe")
