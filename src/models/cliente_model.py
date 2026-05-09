@@ -74,10 +74,10 @@ def buscar_cliente(criterio_busqueda: str):
         cursor = conexion.cursor()
         sql_prompt = ""
         if not criterio_busqueda:
-            sql_prompt = "SELECT * from clientes"
+            sql_prompt = "SELECT * from clientes ORDER BY estado DESC"
             cursor.execute(sql_prompt)
         else:
-            sql_prompt = "SELECT * from clientes WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR telefono LIKE '%' || ? || '%' COLLATE NOCASE OR direccion LIKE '%' || ? || '%' COLLATE NOCASE"
+            sql_prompt = "SELECT * from clientes WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR telefono LIKE '%' || ? || '%' COLLATE NOCASE OR direccion LIKE '%' || ? || '%' COLLATE NOCASE ORDER BY estado DESC"
             cursor.execute(sql_prompt, (criterio_busqueda, criterio_busqueda, criterio_busqueda))
         clientes = tuple(dict(row) for row in cursor.fetchall())
         return (True, clientes)

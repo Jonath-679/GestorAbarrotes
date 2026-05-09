@@ -73,10 +73,10 @@ def buscar_proveedor(criterio_busqueda: str):
         cursor = conexion.cursor()
         sql_prompt = ""
         if not criterio_busqueda:
-            sql_prompt = "SELECT * from proveedores"
+            sql_prompt = "SELECT * from proveedores ORDER BY estado DESC"
             cursor.execute(sql_prompt)
         else:
-            sql_prompt = "SELECT * from proveedores WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR telefono LIKE '%' || ? || '%' COLLATE NOCASE OR direccion LIKE '%' || ? || '%' COLLATE NOCASE"
+            sql_prompt = "SELECT * from proveedores WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR telefono LIKE '%' || ? || '%' COLLATE NOCASE OR direccion LIKE '%' || ? || '%' COLLATE NOCASE ORDER BY estado DESC"
             cursor.execute(sql_prompt, (criterio_busqueda, criterio_busqueda, criterio_busqueda))
         proveedores = tuple(dict(row) for row in cursor.fetchall())
         return (True, proveedores)

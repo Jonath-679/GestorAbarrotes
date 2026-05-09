@@ -74,10 +74,10 @@ def buscar_usuarios(criterio_busqueda: str):
         cursor = conexion.cursor()
         sql_prompt = ""
         if not criterio_busqueda:
-            sql_prompt = "SELECT * from usuarios"
+            sql_prompt = "SELECT * from usuarios ORDER BY estado DESC"
             cursor.execute(sql_prompt)
         else:
-            sql_prompt = "SELECT * from usuarios WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR username LIKE '%' || ? || '%' COLLATE NOCASE "
+            sql_prompt = "SELECT * from usuarios WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR username LIKE '%' || ? || '%' COLLATE NOCASE ORDER BY estado DESC"
             cursor.execute(sql_prompt, (criterio_busqueda, criterio_busqueda))
         usuarios = tuple(dict(row) for row in cursor.fetchall())
         return (True, usuarios)

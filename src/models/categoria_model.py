@@ -74,10 +74,10 @@ def buscar_categoria(criterio_busqueda: str):
         cursor = conexion.cursor()
         sql_prompt = ""
         if not criterio_busqueda:
-            sql_prompt = "SELECT * from categorias"
+            sql_prompt = "SELECT * from categorias ORDER BY estado DESC"
             cursor.execute(sql_prompt)
         else:
-            sql_prompt = "SELECT * from categorias WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR descripcion LIKE '%' || ? || '%' COLLATE NOCASE"
+            sql_prompt = "SELECT * from categorias WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR descripcion LIKE '%' || ? || '%' COLLATE NOCASE ORDER BY estado DESC"
             cursor.execute(sql_prompt, (criterio_busqueda, criterio_busqueda))
         categorias = tuple(dict(row) for row in cursor.fetchall())
         return (True, categorias)
