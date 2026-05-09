@@ -57,6 +57,33 @@ def modificar_usuario(username: str, datos: dict):
     else:
         return (True, None)
 
+def buscar_usuarios(criterio_busqueda: str):
+    """
+    Busca todos los registros en la tabla usuarios que cumplan con el criterio de busqueda
+
+    Args:
+        criterio_busqueda: es lo que hay en la barra de busqueda
+            si esta vacio retornara todos los registros de la tabla usuarios
+            si tiene contenido, se buscaran por nombre y username
+    Returns:
+        Si todo sale bien: (True, tupla_de_diccionarios)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = ""
+        if not criterio_busqueda:
+            sql_prompt = "SELECT * from usuarios"
+            cursor.execute(sql_prompt)
+        else:
+            sql_prompt = "SELECT * from usuarios WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR username LIKE '%' || ? || '%' COLLATE NOCASE "
+            cursor.execute(sql_prompt, (criterio_busqueda, criterio_busqueda))
+        usuarios = tuple(dict(row) for row in cursor.fetchall())
+        return (True, usuarios)
+    except Exception as e:
+        return (False, f"Error: {e}")
+
 def validar_inicio_sesion(username: str, password: str):
     """
     Valida que la contraseña corresponde a la del username
