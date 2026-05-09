@@ -57,7 +57,7 @@ def modificar_producto(codigo: str, datos: dict):
     else:
         return (True, None)
 
-def actualizar_stock(codigo: str, stock: int):
+def actualizar_stock(codigo: str, stock: int, commit: bool=True):
     """
     Actualiza el campo stock de un registro de la tabla productos
     -- esta funcion tambien la puede realizar modificar_producto,
@@ -68,6 +68,7 @@ def actualizar_stock(codigo: str, stock: int):
     Args:
         codigo: codigo del producto
         stock: nuevo valor para stock
+        commit: si es True confirma la transaccion; si es False no hace commit
     Returns:
         Si todo sale bien: (True, None)
         Si algo falla: (False, "mensaje")
@@ -77,7 +78,8 @@ def actualizar_stock(codigo: str, stock: int):
         cursor = conexion.cursor()
         sql_prompt = "UPDATE productos SET stock = ? WHERE codigo = ?"
         cursor.execute(sql_prompt, (stock, codigo))
-        conexion.commit()
+        if commit:
+            conexion.commit()
     except Exception as e:
         return (False, f"Error: {e}")
     else:
