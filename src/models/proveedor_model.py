@@ -82,3 +82,29 @@ def buscar_proveedor(criterio_busqueda: str):
         return (True, proveedores)
     except Exception as e:
         return (False, f"Error: {e}")
+
+def validar_proveedor(id_proveedor: int):
+    """
+    Valida si el id_proveedor existe en la DB
+    
+    Args:
+        id_proveedor:
+    Returns:
+        Si existe: (True, True)
+        Si no existe: (True, False)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "SELECT id_proveedor FROM proveedores WHERE id_proveedor = ?"
+        cursor.execute(sql_prompt, (id_proveedor,))
+        row = cursor.fetchone()
+        # Validacion
+        if row: # Existe
+            return (True, True)
+        else: # No existe
+            return (True, False) 
+    except Exception as e:
+        return (False, f"Error: {e}")
+    

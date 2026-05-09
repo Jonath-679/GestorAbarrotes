@@ -99,3 +99,29 @@ def listar_ventas():
         return (True, ventas)
     except Exception as e:
         return (False, f"Error: {e}")
+
+def validar_venta(id_venta: int):
+    """
+    Valida si el id_venta existe en la DB
+    
+    Args:
+        id_venta:
+    Returns:
+        Si existe: (True, True)
+        Si no existe: (True, False)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "SELECT id_venta FROM ventas WHERE id_venta = ?"
+        cursor.execute(sql_prompt, (id_venta,))
+        row = cursor.fetchone()
+        # Validacion
+        if row: # Existe
+            return (True, True)
+        else: # No existe
+            return (True, False) 
+    except Exception as e:
+        return (False, f"Error: {e}")
+    

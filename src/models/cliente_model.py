@@ -84,6 +84,31 @@ def buscar_cliente(criterio_busqueda: str):
     except Exception as e:
         return (False, f"Error: {e}")
 
+def validar_cliente(nombre: str):
+    """
+    Valida si el nombre del cliente existe en la DB
+    
+    Args:
+        nombre: nombre del cliente
+    Returns:
+        Si existe: (True, True)
+        Si no existe: (True, False)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "SELECT nombre FROM clientes WHERE nombre = ?"
+        cursor.execute(sql_prompt, (nombre,))
+        row = cursor.fetchone()
+        # Validacion
+        if row: # Existe
+            return (True, True)
+        else: # No existe
+            return (True, False) 
+    except Exception as e:
+        return (False, f"Error: {e}")
+    
 ######################### PRUEVAS #########################
 
 if __name__ == "__main__":

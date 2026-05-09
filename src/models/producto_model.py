@@ -135,6 +135,31 @@ def consultar_stock(codigo: str):
     except Exception as e:
         return (False, f"Error: {e}")
 
+def validar_producto(codigo: str):
+    """
+    Valida si el codigo del producto existe en la DB
+    
+    Args:
+        codigo: codigo (unique) del producto
+    Returns:
+        Si existe: (True, True)
+        Si no existe: (True, False)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "SELECT codigo FROM productos WHERE codigo = ?"
+        cursor.execute(sql_prompt, (codigo,))
+        row = cursor.fetchone()
+        # Validacion
+        if row: # Existe
+            return (True, True)
+        else: # No existe
+            return (True, False) 
+    except Exception as e:
+        return (False, f"Error: {e}")
+
 ######################### PRUEVAS #########################
 
 if __name__ == "__main__":
