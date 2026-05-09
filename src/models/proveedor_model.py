@@ -1,14 +1,84 @@
-from database.connection import get_connection
+from src.database.connection import get_connection
 
-# Registra un proveedor | retorna (True, None) o (False, "mensaje")
 def registrar_proveedor(datos: dict):
-    pass
+    """
+    Inserta un nuevo registro en la tabla proveedores
 
-# Modifica los datos de un proveedor | retorna (True, None) o (False, "mensaje")
+    Args:
+        datos (dict): Todos los datos a registrar (nombre, telefono, estado, direccion (opcional))
+    Returns:
+        Si todo sale bien: (True, None)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "INSERT INTO proveedores (nombre, telefono, estado, direccion) VALUES (?, ?, ?, ?)"
+        values = (datos["nombre"], datos["telefono"], datos["estado"], datos.get("direccion"))
+        cursor.execute(sql_prompt, values)
+        conexion.commit()
+    except Exception as e:
+        return (False, f"Error: {e}")
+    else:
+        return (True, None)
+
 def modificar_proveedor(id_proveedor: int, datos: dict):
-    pass
+    """
+    Modifica valores de un registro en la tabla proveedores
+    -- el proveedor debe existir en la DB
 
-# Retorna (True, tupla_de_dicts) o (False, "mensaje")
-# criterio_busqueda es lo que hay en la barra de busqueda | nombre, telefono o direccion | si esta vacio retorna todo los proveedores
+    Args:
+        id_proveedor:
+        datos (dict): Todos los datos a modificar (debe haber al menos un campo)
+    Returns:
+        Si todo sale bien: (True, None)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        if not datos: # Validacion de contenido en datos: dict
+            return (False, "Error: no hay ningun campo a modificar")
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = "UPDATE proveedores SET"
+        values = []
+        # Construir sql_prompt y sus valores
+        for key, value in datos.items():
+            sql_prompt += f" {key} = ?,"
+            values.append(value)
+        sql_prompt = sql_prompt[:-1] # Remueve la ultima coma ,
+        sql_prompt += f" WHERE id_proveedor = ?"
+        values.append(id_proveedor)
+        # Ejecutar sql_prompt + guardar
+        cursor.execute(sql_prompt, tuple(values))
+        conexion.commit()
+    except Exception as e:
+        return (False, f"Error: {e}")
+    else:
+        return (True, None) 
+
 def buscar_proveedor(criterio_busqueda: str):
-    pass
+    """
+    Busca todos los registros en la tabla proveedores que cumplan con el criterio de busqueda
+
+    Args:
+        criterio_busqueda: es lo que hay en la barra de busqueda
+            si esta vacio retornara todos los registros de la tabla proveedores
+            si tiene contenido, se buscaran por nombre, telefono y direccion
+    Returns:
+        Si todo sale bien: (True, tupla_de_diccionarios)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        sql_prompt = ""
+        if not criterio_busqueda:
+            sql_prompt = "SELECT * from proveedores"
+            cursor.execute(sql_prompt)
+        else:
+            sql_prompt = "SELECT * from proveedores WHERE nombre LIKE '%' || ? || '%' COLLATE NOCASE OR telefono LIKE '%' || ? || '%' COLLATE NOCASE OR direccion LIKE '%' || ? || '%' COLLATE NOCASE"
+            cursor.execute(sql_prompt, (criterio_busqueda, criterio_busqueda, criterio_busqueda))
+        proveedores = tuple(dict(row) for row in cursor.fetchall())
+        return (True, proveedores)
+    except Exception as e:
+        return (False, f"Error: {e}")
