@@ -1,6 +1,0 @@
-# Archivo temporal
-
-las funciones buscar que retornen los resultados ordenados por ACTIVOS y despues los inactivos, 
-ya el controlador decidira si muestra los inactivos (tambien las funciones buscar y listar_venta que retornen por fecha mas reciente)
-
-funcion verificar en cada modelo , add
