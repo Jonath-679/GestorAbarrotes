@@ -40,7 +40,7 @@ Este proyecto busca reemplazar esos métodos tradicionales por una solución **d
 |─ README.md                        # Este documento
 |─ requirements.txt                 # Dependencias python
 |─ docs/                            # Documentacion y archivos complementarios
-|─ data/                            # Base de datos
+|─ data/                            # Base de datos y reportes_exel
 |─ src/                             # Codigo del proyecto
 |  |─ main.py                       # Punto de entrada de la app
 |  |─ config.py                     # Configuraciones/Rutas etc..
