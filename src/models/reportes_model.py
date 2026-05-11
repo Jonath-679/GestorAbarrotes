@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence, cast
 from openpyxl import Workbook
 
-from src.config import REPORTS_DIR
+from config import REPORTS_DIR
 
 from src.database.connection import get_connection
 from src.models.cliente_model import buscar_cliente

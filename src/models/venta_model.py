@@ -1,6 +1,6 @@
 # venta_model && detalle_venta_model
-from src.database.connection import get_connection
-from src.models.producto_model import actualizar_stock
+from database.connection import get_connection
+from models.producto_model import actualizar_stock
 
 def registrar_venta(datos: dict):
     """
