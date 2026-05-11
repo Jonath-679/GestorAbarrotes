@@ -51,6 +51,7 @@ class Ui_Form(object):
 
         self.line_contrasea_login = QLineEdit(self.verticalLayoutWidget_3)
         self.line_contrasea_login.setObjectName(u"line_contrasea_login")
+        self.line_contrasea_login.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.verticalLayout_2.addWidget(self.line_contrasea_login)
 
