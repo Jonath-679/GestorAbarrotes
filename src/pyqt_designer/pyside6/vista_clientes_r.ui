@@ -13,7 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="b_guardar">
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QPushButton" name="b_guardar_vista_clientes">
    <property name="geometry">
     <rect>
      <x>380</x>
@@ -55,7 +58,7 @@
     <enum>QFrame::Raised</enum>
    </property>
   </widget>
-  <widget class="QLineEdit" name="line_buscar">
+  <widget class="QLineEdit" name="line_buscar_vista_clientes">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -65,7 +68,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="b_buscar">
+  <widget class="QPushButton" name="b_buscar_vista_clientes">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -88,7 +91,7 @@
     </size>
    </property>
   </widget>
-  <widget class="QPushButton" name="b_registrar">
+  <widget class="QPushButton" name="b_registrar_vista_clientes">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -117,27 +120,27 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label_nombre">
+     <widget class="QLabel" name="label_nombre_vista_clientes">
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Nombre&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="line_nombre"/>
+     <widget class="QLineEdit" name="line_nombre_vista_clientes"/>
     </item>
     <item>
-     <widget class="QLabel" name="label_direccion">
+     <widget class="QLabel" name="label_direccion_vista_clientes">
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Direccion&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="line_direccion"/>
+     <widget class="QLineEdit" name="line_direccion_vista_clientes"/>
     </item>
     <item>
-     <widget class="QLabel" name="label_telefono">
+     <widget class="QLabel" name="label_telefono_vista_clientes">
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Telefono&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
@@ -147,7 +150,7 @@
      <widget class="QLineEdit" name="line_telefono"/>
     </item>
     <item>
-     <widget class="QLabel" name="label_estado">
+     <widget class="QLabel" name="label_estado_vista_clientes">
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Estado&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
@@ -169,7 +172,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="label_buscar">
+  <widget class="QLabel" name="label_buscar_vista_clientes">
    <property name="geometry">
     <rect>
      <x>240</x>
