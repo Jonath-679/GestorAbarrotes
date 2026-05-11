@@ -1,9 +1,8 @@
-#Este archivo va a conectar el diseño con la logica
 import sys
-from inicio import Ui_MainWindow
-from PyQt6.QtWidgets import QApplication,QWidget,QtWidgets
+from PySide6 import QtWidgets
+from views.mainwindow import Ui_MainWindow
+
 if __name__ == "__main__":
-    import sys
     # 1. Crear la aplicación
     app = QtWidgets.QApplication(sys.argv)
     
