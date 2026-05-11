@@ -42,7 +42,7 @@
     </property>
     <layout class="QHBoxLayout" name="layou_botones">
      <item>
-      <widget class="QPushButton" name="b_agruegar_producto">
+      <widget class="QPushButton" name="b_agruegar_producto_barra_ventana">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(217, 217, 217);</string>
        </property>
@@ -62,7 +62,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="b_eliminar_producto">
+      <widget class="QPushButton" name="b_eliminar_producto_barra_ventana">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(217, 217, 217);</string>
        </property>
@@ -83,7 +83,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_costof">
+   <widget class="QLabel" name="label_costof_barra_ventana">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -96,7 +96,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Costo:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_nombre">
+   <widget class="QLabel" name="label_nombre_barra_ventana">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -109,7 +109,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;TextLabel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_costov">
+   <widget class="QLabel" name="label_costov_barra_ventana">
     <property name="geometry">
      <rect>
       <x>340</x>
