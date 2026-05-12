@@ -29,9 +29,11 @@ class MainController:
         self.ui.setupUi(self.main_window)
         self.user_role = "CAJERO" # Rol por defecto
         self.current_user_id = 1 # Usuario actual en sesión
+        self.current_user_name = "Invitado"
         self.carrito = [] # Lista de diccionarios con el carrito actual
         self.cliente_actual = None # Cliente seleccionado para la venta
         
+        self.ui.label_usuario_activo.setText(f"Usuario: {self.current_user_name}")
         self.load_views()
         self.connect_signals()
 
@@ -47,6 +49,12 @@ class MainController:
             self.ui.b_administracion_mainwindow.setEnabled(True)
             self.ui.b_clientes_mainwindow.setEnabled(True)
         
+    def set_active_user(self, nombre: str, username: str = "", user_id: int = None):
+        """Actualiza la etiqueta de usuario activo en la ventana principal."""
+        if user_id is not None:
+            self.current_user_id = user_id
+        self.current_user_name = nombre or username or "Invitado"
+        self.ui.label_usuario_activo.setText(f"Usuario: {self.current_user_name}")
     def load_views(self):
         """Carga e instancia las sub-vistas dentro del QStackedWidget principal."""
         while self.ui.stackedWidget.count() > 0:

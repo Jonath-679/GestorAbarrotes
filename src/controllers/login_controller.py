@@ -67,21 +67,23 @@ class LoginController:
             return
         
         if correct:
-            # Obtener el rol del usuario para aplicarlo a la ventana principal
+            # Obtener el rol y nombre del usuario para aplicarlo a la ventana principal
             status_busq, usuarios = buscar_usuarios(username)
             user_role = "CAJERO"  # Por defecto
             user_id = 1 # Por defecto
+            user_name = username
             if status_busq and usuarios:
                 for registro in usuarios:
                     u = dict(registro)  # Forzar resolución de tipo a dict para Pylance
                     if u.get('username') == username:
                         user_role = str(u.get('rol', 'CAJERO')).upper()
                         user_id = u.get('id_usuario', 1)
+                        user_name = u.get('nombre', username)
                         break
             
-            # Asignamos el rol al main_controller y mostramos la ventana
+            # Asignamos el rol y el usuario activo al main_controller y mostramos la ventana
             self.main_controller.set_user_role(user_role)
-            self.main_controller.current_user_id = user_id
+            self.main_controller.set_active_user(user_name, username, user_id)
             
             # Registrar actividad
             registrar_log({
