@@ -5,11 +5,11 @@ from openpyxl import Workbook
 
 from config import REPORTS_DIR
 
-from src.database.connection import get_connection
-from src.models.cliente_model import buscar_cliente
-from src.models.producto_model import buscar_producto
-from src.models.usuario_model import buscar_usuarios
-from src.models.venta_model import listar_ventas
+from database.connection import get_connection
+from models.cliente_model import buscar_cliente
+from models.producto_model import buscar_producto
+from models.usuario_model import buscar_usuarios
+from models.venta_model import listar_ventas
 
 def _write_excel(headers: list[str], rows: Sequence[Mapping[str, Any]], file_path: Path) -> None:
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -39,7 +39,7 @@ def _write_excel(headers: list[str], rows: Sequence[Mapping[str, Any]], file_pat
         ws.append(values)
     wb.save(file_path)
 
-def reporte_inventario():
+def reporte_inventario(file_path_str: str = None):
     """
     Genera un reporte de inventario (productos)
 
@@ -60,14 +60,14 @@ def reporte_inventario():
             "precio",
             "stock",
         ]
-        file_path = REPORTS_DIR / "reporte_inventario.xlsx"
+        file_path = Path(file_path_str) if file_path_str else REPORTS_DIR / "reporte_inventario.xlsx"
         productos_rows = cast(Sequence[Mapping[str, Any]], productos)
         _write_excel(headers, productos_rows, file_path)
         return (True, str(file_path))
     except Exception as e:
         return (False, f"Error: {e}")
 
-def reporte_clientes():
+def reporte_clientes(file_path_str: str = None):
     """
     Genera un reporte de clientes
 
@@ -86,14 +86,14 @@ def reporte_clientes():
             "direccion",
             "estado",
         ]
-        file_path = REPORTS_DIR / "reporte_clientes.xlsx"
+        file_path = Path(file_path_str) if file_path_str else REPORTS_DIR / "reporte_clientes.xlsx"
         clientes_rows = cast(Sequence[Mapping[str, Any]], clientes)
         _write_excel(headers, clientes_rows, file_path)
         return (True, str(file_path))
     except Exception as e:
         return (False, f"Error: {e}")
 
-def reporte_usuarios():
+def reporte_usuarios(file_path_str: str = None):
     """
     Genera un reporte de usuarios
 
@@ -112,14 +112,14 @@ def reporte_usuarios():
             "rol",
             "estado",
         ]
-        file_path = REPORTS_DIR / "reporte_usuarios.xlsx"
+        file_path = Path(file_path_str) if file_path_str else REPORTS_DIR / "reporte_usuarios.xlsx"
         usuarios_rows = cast(Sequence[Mapping[str, Any]], usuarios)
         _write_excel(headers, usuarios_rows, file_path)
         return (True, str(file_path))
     except Exception as e:
         return (False, f"Error: {e}")
 
-def reporte_ventas():
+def reporte_ventas(file_path_str: str = None):
     """
     Genera un reporte de ventas con detalles y datos de cliente/usuario
 
@@ -224,14 +224,47 @@ def reporte_ventas():
                     }
                 )
 
-        file_path = REPORTS_DIR / "reporte_ventas.xlsx"
+        file_path = Path(file_path_str) if file_path_str else REPORTS_DIR / "reporte_ventas.xlsx"
         _write_excel(headers, rows, file_path)
         return (True, str(file_path))
     except Exception as e:
         return (False, f"Error: {e}")
 
-def reporte_logs():
-    pass
+def reporte_logs(file_path_str: str = None):
+    """
+    Genera un reporte de logs del sistema.
+
+    Returns:
+        Si todo sale bien: (True, ruta_archivo)
+        Si algo falla: (False, "mensaje")
+    """
+    try:
+        conexion = get_connection()
+        cursor = conexion.cursor()
+        cursor.execute('''
+            SELECT l.id_log, l.id_usuario, u.username, u.nombre, l.accion, l.modulo, l.descripcion, l.fecha_hora
+            FROM logs l
+            LEFT JOIN usuarios u ON l.id_usuario = u.id_usuario
+            ORDER BY l.fecha_hora DESC
+        ''')
+        logs = tuple(dict(row) for row in cursor.fetchall())
+        
+        headers = [
+            "id_log",
+            "id_usuario",
+            "username",
+            "nombre",
+            "accion",
+            "modulo",
+            "descripcion",
+            "fecha_hora",
+        ]
+        file_path = Path(file_path_str) if file_path_str else REPORTS_DIR / "reporte_logs.xlsx"
+        logs_rows = cast(Sequence[Mapping[str, Any]], logs)
+        _write_excel(headers, logs_rows, file_path)
+        return (True, str(file_path))
+    except Exception as e:
+        return (False, f"Error: {e}")
 
 ######################### PRUEVAS #########################
 

@@ -100,3 +100,58 @@ class DialogProveedor(BaseDialog):
         self.form_layout.addRow(self.required_label("Nombre"), self.line_nombre)
         self.form_layout.addRow(self.required_label("Teléfono"), self.line_telefono)
         self.form_layout.addRow(QLabel("Dirección"), self.line_direccion)
+
+from PySide6.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView
+
+class DialogSeleccionarProducto(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Seleccionar Producto")
+        self.setMinimumWidth(600)
+        self.setMinimumHeight(400)
+        self.setModal(True)
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowContextHelpButtonHint)
+        
+        self.producto_seleccionado = None
+        
+        layout = QVBoxLayout(self)
+        
+        # Header de busqueda
+        top_layout = QHBoxLayout()
+        self.line_buscar = QLineEdit()
+        self.line_buscar.setPlaceholderText("🔍 Escriba código o nombre y presione Enter...")
+        self.btn_buscar = QPushButton("Buscar")
+        top_layout.addWidget(self.line_buscar)
+        top_layout.addWidget(self.btn_buscar)
+        layout.addLayout(top_layout)
+        
+        # Tabla de resultados
+        self.tabla = QTableWidget(0, 4)
+        self.tabla.setHorizontalHeaderLabels(["Código", "Nombre", "Precio", "Stock"])
+        self.tabla.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.tabla.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tabla.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        layout.addWidget(self.tabla)
+        
+        # Botones inferiores
+        bot_layout = QHBoxLayout()
+        self.btn_cancelar = QPushButton("Cancelar")
+        self.btn_cancelar.setProperty("class", "DangerButton")
+        self.btn_seleccionar = QPushButton("Seleccionar")
+        self.btn_seleccionar.setProperty("class", "SuccessButton")
+        bot_layout.addStretch()
+        bot_layout.addWidget(self.btn_cancelar)
+        bot_layout.addWidget(self.btn_seleccionar)
+        layout.addLayout(bot_layout)
+        
+        self.btn_cancelar.clicked.connect(self.reject)
+        self.btn_seleccionar.clicked.connect(self.acceptar_seleccion)
+        self.tabla.cellDoubleClicked.connect(self.acceptar_seleccion)
+        
+    def acceptar_seleccion(self):
+        row = self.tabla.currentRow()
+        if row >= 0:
+            item = self.tabla.item(row, 0)
+            if item is not None:
+                self.producto_seleccionado = item.text() # Código
+                self.accept()

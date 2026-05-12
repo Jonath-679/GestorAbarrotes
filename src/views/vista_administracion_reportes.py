@@ -20,9 +20,15 @@ class Ui_Form(object):
         self.tab_inventario = QWidget()
         self.layout_inv = QVBoxLayout(self.tab_inventario)
         self.header_inv = QHBoxLayout()
+        
+        self.btn_actualizar_inv = QPushButton("🔄 Actualizar")
+        self.btn_actualizar_inv.setMinimumHeight(35)
+        self.header_inv.addWidget(self.btn_actualizar_inv)
+        
         self.btn_nuevo_producto = QPushButton("➕ Nuevo Producto")
         self.btn_nuevo_producto.setMinimumHeight(35)
         self.header_inv.addWidget(self.btn_nuevo_producto)
+        
         self.header_inv.addStretch()
         self.layout_inv.addLayout(self.header_inv)
         
@@ -38,9 +44,15 @@ class Ui_Form(object):
         self.tab_categorias = QWidget()
         self.layout_cat = QVBoxLayout(self.tab_categorias)
         self.header_cat = QHBoxLayout()
+        
+        self.btn_actualizar_cat = QPushButton("🔄 Actualizar")
+        self.btn_actualizar_cat.setMinimumHeight(35)
+        self.header_cat.addWidget(self.btn_actualizar_cat)
+        
         self.btn_nueva_categoria = QPushButton("➕ Nueva Categoría")
         self.btn_nueva_categoria.setMinimumHeight(35)
         self.header_cat.addWidget(self.btn_nueva_categoria)
+        
         self.header_cat.addStretch()
         self.layout_cat.addLayout(self.header_cat)
         
@@ -56,9 +68,15 @@ class Ui_Form(object):
         self.tab_empleados = QWidget()
         self.layout_emp = QVBoxLayout(self.tab_empleados)
         self.header_emp = QHBoxLayout()
+        
+        self.btn_actualizar_emp = QPushButton("🔄 Actualizar")
+        self.btn_actualizar_emp.setMinimumHeight(35)
+        self.header_emp.addWidget(self.btn_actualizar_emp)
+        
         self.btn_nuevo_empleado = QPushButton("➕ Nuevo Empleado")
         self.btn_nuevo_empleado.setMinimumHeight(35)
         self.header_emp.addWidget(self.btn_nuevo_empleado)
+        
         self.header_emp.addStretch()
         self.layout_emp.addLayout(self.header_emp)
         
@@ -74,9 +92,15 @@ class Ui_Form(object):
         self.tab_proveedores = QWidget()
         self.layout_prov = QVBoxLayout(self.tab_proveedores)
         self.header_prov = QHBoxLayout()
+        
+        self.btn_actualizar_prov = QPushButton("🔄 Actualizar")
+        self.btn_actualizar_prov.setMinimumHeight(35)
+        self.header_prov.addWidget(self.btn_actualizar_prov)
+        
         self.btn_nuevo_proveedor = QPushButton("➕ Nuevo Proveedor")
         self.btn_nuevo_proveedor.setMinimumHeight(35)
         self.header_prov.addWidget(self.btn_nuevo_proveedor)
+        
         self.header_prov.addStretch()
         self.layout_prov.addLayout(self.header_prov)
         
@@ -92,12 +116,20 @@ class Ui_Form(object):
         self.tab_reportes = QWidget()
         self.layout_rep = QVBoxLayout(self.tab_reportes)
         
+        self.header_rep = QHBoxLayout()
         self.label_historial = QLabel("Historial de Ventas Recientes")
         self.label_historial.setProperty("class", "Subtitle")
-        self.layout_rep.addWidget(self.label_historial)
+        self.header_rep.addWidget(self.label_historial)
+        self.header_rep.addStretch()
         
-        self.tabla_historial_ventas = QTableWidget(0, 5)
-        self.tabla_historial_ventas.setHorizontalHeaderLabels(["ID Venta", "Fecha", "Total", "Cajero", "Cliente"])
+        self.btn_actualizar_rep = QPushButton("🔄 Actualizar")
+        self.btn_actualizar_rep.setMinimumHeight(35)
+        self.header_rep.addWidget(self.btn_actualizar_rep)
+        
+        self.layout_rep.addLayout(self.header_rep)
+        
+        self.tabla_historial_ventas = QTableWidget(0, 6)
+        self.tabla_historial_ventas.setHorizontalHeaderLabels(["ID Venta", "Fecha", "Total", "Cajero", "Cliente", "Productos"])
         self.tabla_historial_ventas.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.tabla_historial_ventas.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         self.tabla_historial_ventas.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
@@ -121,6 +153,16 @@ class Ui_Form(object):
         self.grid_rep.addWidget(self.btn_rep_logs)
         
         self.layout_rep.addLayout(self.grid_rep)
+        
+        # Opciones Avanzadas
+        self.label_sistema = QLabel("Opciones de Sistema")
+        self.label_sistema.setProperty("class", "Subtitle")
+        self.layout_rep.addWidget(self.label_sistema)
+        
+        self.btn_toggle_db = QPushButton("🔄 Cambiar Base de Datos (Actual: Ejemplo)")
+        self.btn_toggle_db.setProperty("class", "DangerButton")
+        self.layout_rep.addWidget(self.btn_toggle_db)
+        
         self.tab_widget.addTab(self.tab_reportes, "📈 Reportes e Historial")
 
         self.main_layout.addWidget(self.tab_widget)

@@ -24,6 +24,13 @@ class Ui_Form(object):
         
         self.top_bar.addStretch()
         
+        self.btn_actualizar = QPushButton("🔄 Actualizar")
+        self.btn_actualizar.setMinimumHeight(35)
+        self.btn_actualizar.setStyleSheet("text-align: center; padding: 0 15px;")
+        self.top_bar.addWidget(self.btn_actualizar)
+        
+        self.top_bar.addStretch()
+        
         self.btn_registrar = QPushButton("➕ Nuevo Cliente")
         self.btn_registrar.setStyleSheet("background-color: #007acc;")
         self.btn_registrar.setMinimumHeight(35)

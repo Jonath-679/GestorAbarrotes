@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets
 from views.vistan_login import Ui_Form as Ui_Login
 from models.usuario_model import validar_inicio_sesion, validar_usuario, registrar_usuario, buscar_usuarios
+from models.log_model import registrar_log
 
 class LoginController:
     def __init__(self, main_controller):
@@ -69,15 +70,26 @@ class LoginController:
             # Obtener el rol del usuario para aplicarlo a la ventana principal
             status_busq, usuarios = buscar_usuarios(username)
             user_role = "CAJERO"  # Por defecto
+            user_id = 1 # Por defecto
             if status_busq and usuarios:
                 for registro in usuarios:
                     u = dict(registro)  # Forzar resolución de tipo a dict para Pylance
                     if u.get('username') == username:
                         user_role = str(u.get('rol', 'CAJERO')).upper()
+                        user_id = u.get('id_usuario', 1)
                         break
             
             # Asignamos el rol al main_controller y mostramos la ventana
             self.main_controller.set_user_role(user_role)
+            self.main_controller.current_user_id = user_id
+            
+            # Registrar actividad
+            registrar_log({
+                "id_usuario": user_id,
+                "accion": "Inicio de Sesión",
+                "modulo": "Auth",
+                "descripcion": f"El usuario '{username}' inició sesión en el sistema."
+            })
             
             # Login Exitoso
             self.window.close()
