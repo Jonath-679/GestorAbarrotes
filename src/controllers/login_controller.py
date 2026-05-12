@@ -1,6 +1,6 @@
 from PySide6 import QtWidgets
 from views.vistan_login import Ui_Form as Ui_Login
-from models.usuario_model import validar_inicio_sesion, validar_usuario, registrar_usuario
+from models.usuario_model import validar_inicio_sesion, validar_usuario, registrar_usuario, buscar_usuarios
 
 class LoginController:
     def __init__(self, main_controller):
@@ -8,6 +8,7 @@ class LoginController:
         Inicializa el controlador de login. Recibe referencias al MainController para interactuar con él.
         """
         self.main_controller = main_controller  # Para mostrar la ventana principal al triunfar
+        self.main_controller.login_controller = self # Inyectarse a main_controller para que pueda cerrar sesion
         self.window = QtWidgets.QWidget()
         self.ui = Ui_Login()
         self.ui.setupUi(self.window)
@@ -26,6 +27,14 @@ class LoginController:
         """
         self.ui.line_contrasea_login.returnPressed.connect(self.attempt_login)
         self.ui.line_usuario_login.returnPressed.connect(self.attempt_login)
+        self.ui.btn_ingresar.clicked.connect(self.attempt_login)
+        self.ui.btn_toggle_pwd.clicked.connect(self.toggle_password_visibility)
+
+    def toggle_password_visibility(self):
+        if self.ui.line_contrasea_login.echoMode() == QtWidgets.QLineEdit.EchoMode.Password:
+            self.ui.line_contrasea_login.setEchoMode(QtWidgets.QLineEdit.EchoMode.Normal)
+        else:
+            self.ui.line_contrasea_login.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         
     def ensure_default_admin(self):
         """Crea un usuario administrador por defecto si no existe."""
@@ -57,6 +66,19 @@ class LoginController:
             return
         
         if correct:
+            # Obtener el rol del usuario para aplicarlo a la ventana principal
+            status_busq, usuarios = buscar_usuarios(username)
+            user_role = "CAJERO"  # Por defecto
+            if status_busq and usuarios:
+                for registro in usuarios:
+                    u = dict(registro)  # Forzar resolución de tipo a dict para Pylance
+                    if u.get('username') == username:
+                        user_role = str(u.get('rol', 'CAJERO')).upper()
+                        break
+            
+            # Asignamos el rol al main_controller y mostramos la ventana
+            self.main_controller.set_user_role(user_role)
+            
             # Login Exitoso
             self.window.close()
             # Muestra el main window delegando al controllador central

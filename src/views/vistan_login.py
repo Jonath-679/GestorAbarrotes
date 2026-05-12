@@ -1,79 +1,80 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'vistan_login.ui'
-##
-## Created by: Qt User Interface Compiler version 6.10.3
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QSizePolicy,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy
+from PySide6.QtCore import Qt
 
 class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(579, 300)
-        Form.setStyleSheet(u"background-color: rgb(255, 255, 255);")
-        self.verticalLayoutWidget_3 = QWidget(Form)
-        self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
-        self.verticalLayoutWidget_3.setGeometry(QRect(160, 110, 251, 91))
-        self.verticalLayout_3 = QVBoxLayout(self.verticalLayoutWidget_3)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label_usuario_login = QLabel(self.verticalLayoutWidget_3)
-        self.label_usuario_login.setObjectName(u"label_usuario_login")
-
-        self.verticalLayout.addWidget(self.label_usuario_login)
-
-        self.line_usuario_login = QLineEdit(self.verticalLayoutWidget_3)
-        self.line_usuario_login.setObjectName(u"line_usuario_login")
-
-        self.verticalLayout.addWidget(self.line_usuario_login)
-
-        self.verticalLayout_2 = QVBoxLayout()
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.label_contrasea_login = QLabel(self.verticalLayoutWidget_3)
-        self.label_contrasea_login.setObjectName(u"label_contrasea_login")
-
-        self.verticalLayout_2.addWidget(self.label_contrasea_login)
-
-        self.line_contrasea_login = QLineEdit(self.verticalLayoutWidget_3)
-        self.line_contrasea_login.setObjectName(u"line_contrasea_login")
+    def setupUi(self, Form: QWidget):
+        Form.setObjectName("LoginForm")
+        Form.resize(500, 400)
+        Form.setMinimumSize(400, 350)
+        
+        self.main_layout = QVBoxLayout(Form)
+        self.main_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        self.card = QWidget(Form)
+        self.card.setMinimumWidth(350)
+        self.card.setMaximumWidth(400)
+        self.card.setStyleSheet("background-color: #252526; border-radius: 8px;")
+        
+        self.card_layout = QVBoxLayout(self.card)
+        self.card_layout.setContentsMargins(40, 40, 40, 40)
+        self.card_layout.setSpacing(20)
+        
+        self.label_titulo = QLabel("Inicio de Sesión")
+        self.label_titulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_titulo.setProperty("class", "Title")
+        self.label_titulo.setStyleSheet("background: transparent;")
+        self.card_layout.addWidget(self.label_titulo)
+        
+        self.layout_user = QVBoxLayout()
+        self.layout_user.setSpacing(5)
+        self.label_usuario_login = QLabel("Usuario")
+        self.label_usuario_login.setStyleSheet("background: transparent;")
+        self.line_usuario_login = QLineEdit()
+        self.line_usuario_login.setPlaceholderText("Ingresa tu username")
+        self.layout_user.addWidget(self.label_usuario_login)
+        self.layout_user.addWidget(self.line_usuario_login)
+        self.card_layout.addLayout(self.layout_user)
+        
+        self.layout_pass = QVBoxLayout()
+        self.layout_pass.setSpacing(5)
+        self.label_contrasea_login = QLabel("Contraseña")
+        self.label_contrasea_login.setStyleSheet("background: transparent;")
+        
+        self.layout_pass_input = QHBoxLayout()
+        self.layout_pass_input.setSpacing(5)
+        self.line_contrasea_login = QLineEdit()
+        self.line_contrasea_login.setPlaceholderText("Ingresa tu contraseña")
         self.line_contrasea_login.setEchoMode(QLineEdit.EchoMode.Password)
-
-        self.verticalLayout_2.addWidget(self.line_contrasea_login)
-
-
-        self.verticalLayout.addLayout(self.verticalLayout_2)
-
-
-        self.verticalLayout_3.addLayout(self.verticalLayout)
-
-        self.label_foto = QLabel(Form)
-        self.label_foto.setObjectName(u"label_foto")
-        self.label_foto.setGeometry(QRect(240, 50, 91, 21))
-
-        self.retranslateUi(Form)
-
-        QMetaObject.connectSlotsByName(Form)
-    # setupUi
-
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label_usuario_login.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:14pt;\">Usuario</span></p></body></html>", None))
-        self.label_contrasea_login.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:14pt;\">Contrase\u00f1a</span></p></body></html>", None))
-        self.label_foto.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt;\">TextLabel</span></p></body></html>", None))
-    # retranslateUi
-
+        
+        self.btn_toggle_pwd = QPushButton("👁️")
+        self.btn_toggle_pwd.setFixedSize(35, 30)
+        self.btn_toggle_pwd.setStyleSheet("background: #444444; border-radius: 4px; font-size: 14px;")
+        self.btn_toggle_pwd.setCursor(Qt.CursorShape.PointingHandCursor)
+        
+        self.layout_pass_input.addWidget(self.line_contrasea_login)
+        self.layout_pass_input.addWidget(self.btn_toggle_pwd)
+        
+        self.layout_pass.addWidget(self.label_contrasea_login)
+        self.layout_pass.addLayout(self.layout_pass_input)
+        self.card_layout.addLayout(self.layout_pass)
+        
+        self.card_layout.addSpacerItem(QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
+        
+        self.btn_ingresar = QPushButton("Ingresar")
+        self.btn_ingresar.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.btn_ingresar.setStyleSheet("""
+            QPushButton {
+                background-color: #007acc; 
+                color: white; 
+                border-radius: 4px; 
+                padding: 10px; 
+                font-weight: bold;
+                font-size: 14px;
+            }
+            QPushButton:hover {
+                background-color: #0098ff;
+            }
+        """)
+        self.card_layout.addWidget(self.btn_ingresar)
+        
+        self.main_layout.addWidget(self.card)

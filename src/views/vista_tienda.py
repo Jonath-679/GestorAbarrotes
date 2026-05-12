@@ -1,97 +1,91 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'vista_tienda.ui'
-##
-## Created by: Qt User Interface Compiler version 6.10.3
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QScrollArea, QSizePolicy, QSpacerItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QTableWidget, QTableWidgetItem, QHeaderView, QFrame, QSizePolicy
+from PySide6.QtCore import Qt
 
 class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(411, 300)
-        self.frame_total = QFrame(Form)
-        self.frame_total.setObjectName(u"frame_total")
-        self.frame_total.setGeometry(QRect(0, 270, 411, 31))
-        self.frame_total.setStyleSheet(u"background-color: rgb(217, 217, 217);")
-        self.frame_total.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_total.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayoutWidget = QWidget(self.frame_total)
-        self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
-        self.horizontalLayoutWidget.setGeometry(QRect(0, 0, 161, 31))
-        self.horizontalLayout = QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.label_total_vista_tienda = QLabel(self.horizontalLayoutWidget)
-        self.label_total_vista_tienda.setObjectName(u"label_total_vista_tienda")
-
-        self.horizontalLayout.addWidget(self.label_total_vista_tienda)
-
-        self.label_total_vista_tienda_2 = QLabel(self.horizontalLayoutWidget)
-        self.label_total_vista_tienda_2.setObjectName(u"label_total_vista_tienda_2")
-
-        self.horizontalLayout.addWidget(self.label_total_vista_tienda_2)
-
-        self.scrollArea = QScrollArea(Form)
-        self.scrollArea.setObjectName(u"scrollArea")
-        self.scrollArea.setGeometry(QRect(0, 0, 411, 271))
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollAreaWidgetContents = QWidget()
-        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 409, 269))
-        self.scrollAreaWidgetContents.setStyleSheet(u"background-color: rgb(255, 255, 255);")
-        self.verticalLayoutWidget = QWidget(self.scrollAreaWidgetContents)
-        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(0, 30, 411, 241))
-        self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
-
-        self.frame_2 = QFrame(self.scrollAreaWidgetContents)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setGeometry(QRect(0, 0, 411, 31))
-        self.frame_2.setStyleSheet(u"background-color: rgb(217, 217, 217);")
-        self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
-        self.label_venta_vista_tienda = QLabel(self.frame_2)
-        self.label_venta_vista_tienda.setObjectName(u"label_venta_vista_tienda")
-        self.label_venta_vista_tienda.setGeometry(QRect(0, 0, 91, 31))
-        self.label_fechaf_vista_tienda = QLabel(self.frame_2)
-        self.label_fechaf_vista_tienda.setObjectName(u"label_fechaf_vista_tienda")
-        self.label_fechaf_vista_tienda.setGeometry(QRect(230, 0, 81, 31))
-        self.label_fechav_vista_tienda = QLabel(self.frame_2)
-        self.label_fechav_vista_tienda.setObjectName(u"label_fechav_vista_tienda")
-        self.label_fechav_vista_tienda.setGeometry(QRect(310, 0, 81, 21))
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-
-        self.retranslateUi(Form)
-
-        QMetaObject.connectSlotsByName(Form)
-    # setupUi
-
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label_total_vista_tienda.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:20pt;\">Total:</span></p></body></html>", None))
-        self.label_total_vista_tienda_2.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:20pt;\">TextLabel</span></p></body></html>", None))
-        self.label_venta_vista_tienda.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:20pt;\">Venta</span></p></body></html>", None))
-        self.label_fechaf_vista_tienda.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:20pt;\">Fecha:</span></p></body></html>", None))
-        self.label_fechav_vista_tienda.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:20pt;\">00/00/0000</span></p></body></html>", None))
-    # retranslateUi
-
+    def setupUi(self, Form: QWidget):
+        Form.setObjectName("VistaTienda")
+        
+        # Layout principal
+        self.main_layout = QVBoxLayout(Form)
+        self.main_layout.setContentsMargins(20, 20, 20, 20)
+        self.main_layout.setSpacing(15)
+        
+        # --- Barra superior (Búsqueda y Acciones) ---
+        self.top_bar = QHBoxLayout()
+        self.top_bar.setSpacing(10)
+        
+        self.line_buscar_producto = QLineEdit()
+        self.line_buscar_producto.setPlaceholderText("🔍 Buscar producto por código o nombre...")
+        self.line_buscar_producto.setMinimumHeight(35)
+        self.top_bar.addWidget(self.line_buscar_producto)
+        
+        self.btn_buscar = QPushButton("Buscar")
+        self.btn_buscar.setMinimumHeight(35)
+        self.top_bar.addWidget(self.btn_buscar)
+        
+        self.btn_agregar = QPushButton("Añadir al Carrito")
+        self.btn_agregar.setProperty("class", "DangerButton") # Solo diferente color
+        self.btn_agregar.setStyleSheet("background-color: #2b6a43;") # Verde success
+        self.btn_agregar.setMinimumHeight(35)
+        self.top_bar.addWidget(self.btn_agregar)
+        
+        self.main_layout.addLayout(self.top_bar)
+        
+        # --- Tabla del Carrito ---
+        self.tabla_carrito = QTableWidget(0, 5)
+        self.tabla_carrito.setHorizontalHeaderLabels(["Código", "Producto", "Cant.", "Precio Unit.", "Subtotal"])
+        self.tabla_carrito.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.tabla_carrito.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Interactive)
+        self.tabla_carrito.verticalHeader().setVisible(False)
+        self.tabla_carrito.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.tabla_carrito.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.tabla_carrito.setStyleSheet("background-color: #1e1e1e; border: 1px solid #333333; gridline-color: #333333;")
+        self.main_layout.addWidget(self.tabla_carrito)
+        
+        # --- Panel inferior (Totales y Cobro) ---
+        self.bottom_panel = QFrame()
+        self.bottom_panel.setProperty("class", "HeaderFrame")
+        self.bottom_panel.setStyleSheet("background-color: #252526; border-radius: 8px;")
+        self.bottom_layout = QHBoxLayout(self.bottom_panel)
+        self.bottom_layout.setContentsMargins(20, 15, 20, 15)
+        
+        self.btn_eliminar_item = QPushButton("🗑️ Quitar Item")
+        self.btn_eliminar_item.setProperty("class", "DangerButton")
+        self.btn_eliminar_item.setMinimumWidth(120)
+        self.btn_eliminar_item.setMinimumHeight(40)
+        self.bottom_layout.addWidget(self.btn_eliminar_item)
+        
+        self.btn_cancelar_venta = QPushButton("❌ Cancelar Venta")
+        self.btn_cancelar_venta.setProperty("class", "DangerButton")
+        self.btn_cancelar_venta.setMinimumWidth(140)
+        self.btn_cancelar_venta.setMinimumHeight(40)
+        self.bottom_layout.addWidget(self.btn_cancelar_venta)
+        
+        self.bottom_layout.addStretch()
+        
+        self.label_total_texto = QLabel("TOTAL:")
+        self.label_total_texto.setStyleSheet("color: #a0a0a0; font-size: 18px; font-weight: bold;")
+        self.bottom_layout.addWidget(self.label_total_texto)
+        
+        self.label_total_valor = QLabel("$ 0.00")
+        self.label_total_valor.setStyleSheet("color: #4ade80; font-size: 24px; font-weight: bold;")
+        self.bottom_layout.addWidget(self.label_total_valor)
+        
+        self.bottom_layout.addSpacing(20)
+        
+        self.btn_cobrar = QPushButton("💵 COBRAR")
+        self.btn_cobrar.setStyleSheet("""
+            QPushButton {
+                background-color: #166534; 
+                color: white; 
+                font-size: 14px; 
+                font-weight: bold; 
+                border-radius: 4px;
+            }
+            QPushButton:hover { background-color: #1c7a40; }
+        """)
+        self.btn_cobrar.setMinimumWidth(120)
+        self.btn_cobrar.setMinimumHeight(40)
+        self.bottom_layout.addWidget(self.btn_cobrar)
+        
+        self.main_layout.addWidget(self.bottom_panel)

@@ -1,130 +1,126 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'vista_administracion_reportes.ui'
-##
-## Created by: Qt User Interface Compiler version 6.10.3
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QPushButton,
-    QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QTabWidget, QLabel, QFrame, QHBoxLayout, QPushButton, QTableWidget, QHeaderView
+from PySide6.QtCore import Qt
 
 class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(471, 339)
-        Form.setStyleSheet(u"background-color: rgb(255, 255, 255);")
-        self.gridLayoutWidget = QWidget(Form)
-        self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
-        self.gridLayoutWidget.setGeometry(QRect(40, 50, 381, 221))
-        self.gridLayout = QGridLayout(self.gridLayoutWidget)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.b_r_inventario_administracion_reportes = QPushButton(self.gridLayoutWidget)
-        self.b_r_inventario_administracion_reportes.setObjectName(u"b_r_inventario_administracion_reportes")
-        self.b_r_inventario_administracion_reportes.setStyleSheet(u"background-color: rgb(217, 217, 217);")
-        icon = QIcon()
-        icon.addFile(u"../../images/garage_4398945.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.b_r_inventario_administracion_reportes.setIcon(icon)
-        self.b_r_inventario_administracion_reportes.setIconSize(QSize(80, 80))
+    def setupUi(self, Form: QWidget):
+        Form.setObjectName("VistaAdmin")
+        
+        self.main_layout = QVBoxLayout(Form)
+        self.main_layout.setContentsMargins(10, 10, 10, 10)
+        
+        self.tab_widget = QTabWidget()
+        self.tab_widget.setStyleSheet("""
+            QTabWidget::pane { border: 1px solid #333; background: #1e1e1e; border-radius: 4px; }
+            QTabBar::tab { background: #252526; color: #a0a0a0; padding: 10px 20px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-right: 2px; }
+            QTabBar::tab:selected { background: #1e1e1e; color: #ffffff; border-bottom: 2px solid #007acc; }
+            QTabBar::tab:hover:!selected { background: #2d2d2d; }
+        """)
+        
+        # --- TAB: INVENTARIO (Productos) ---
+        self.tab_inventario = QWidget()
+        self.layout_inv = QVBoxLayout(self.tab_inventario)
+        self.header_inv = QHBoxLayout()
+        self.btn_nuevo_producto = QPushButton("➕ Nuevo Producto")
+        self.btn_nuevo_producto.setMinimumHeight(35)
+        self.header_inv.addWidget(self.btn_nuevo_producto)
+        self.header_inv.addStretch()
+        self.layout_inv.addLayout(self.header_inv)
+        
+        self.tabla_productos = QTableWidget(0, 6)
+        self.tabla_productos.setHorizontalHeaderLabels(["Código", "Nombre", "Precio Compra", "Precio Venta", "Stock", "Categoría"])
+        self.tabla_productos.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.tabla_productos.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.tabla_productos.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.layout_inv.addWidget(self.tabla_productos)
+        self.tab_widget.addTab(self.tab_inventario, "📦 Inventario")
+        
+        # --- TAB: CATEGORÍAS ---
+        self.tab_categorias = QWidget()
+        self.layout_cat = QVBoxLayout(self.tab_categorias)
+        self.header_cat = QHBoxLayout()
+        self.btn_nueva_categoria = QPushButton("➕ Nueva Categoría")
+        self.btn_nueva_categoria.setMinimumHeight(35)
+        self.header_cat.addWidget(self.btn_nueva_categoria)
+        self.header_cat.addStretch()
+        self.layout_cat.addLayout(self.header_cat)
+        
+        self.tabla_categorias = QTableWidget(0, 3)
+        self.tabla_categorias.setHorizontalHeaderLabels(["ID", "Nombre", "Estado"])
+        self.tabla_categorias.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.tabla_categorias.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.tabla_categorias.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.layout_cat.addWidget(self.tabla_categorias)
+        self.tab_widget.addTab(self.tab_categorias, "🏷️ Categorías")
+        
+        # --- TAB: EMPLEADOS ---
+        self.tab_empleados = QWidget()
+        self.layout_emp = QVBoxLayout(self.tab_empleados)
+        self.header_emp = QHBoxLayout()
+        self.btn_nuevo_empleado = QPushButton("➕ Nuevo Empleado")
+        self.btn_nuevo_empleado.setMinimumHeight(35)
+        self.header_emp.addWidget(self.btn_nuevo_empleado)
+        self.header_emp.addStretch()
+        self.layout_emp.addLayout(self.header_emp)
+        
+        self.tabla_empleados = QTableWidget(0, 5)
+        self.tabla_empleados.setHorizontalHeaderLabels(["ID", "Nombre", "Usuario", "Rol", "Estado"])
+        self.tabla_empleados.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.tabla_empleados.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.tabla_empleados.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.layout_emp.addWidget(self.tabla_empleados)
+        self.tab_widget.addTab(self.tab_empleados, "🧑‍💼 Empleados")
+        
+        # --- TAB: PROVEEDORES ---
+        self.tab_proveedores = QWidget()
+        self.layout_prov = QVBoxLayout(self.tab_proveedores)
+        self.header_prov = QHBoxLayout()
+        self.btn_nuevo_proveedor = QPushButton("➕ Nuevo Proveedor")
+        self.btn_nuevo_proveedor.setMinimumHeight(35)
+        self.header_prov.addWidget(self.btn_nuevo_proveedor)
+        self.header_prov.addStretch()
+        self.layout_prov.addLayout(self.header_prov)
+        
+        self.tabla_proveedores = QTableWidget(0, 4)
+        self.tabla_proveedores.setHorizontalHeaderLabels(["ID", "Nombre", "Teléfono", "Email"])
+        self.tabla_proveedores.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.tabla_proveedores.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.tabla_proveedores.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.layout_prov.addWidget(self.tabla_proveedores)
+        self.tab_widget.addTab(self.tab_proveedores, "🏢 Proveedores")
 
-        self.verticalLayout.addWidget(self.b_r_inventario_administracion_reportes)
+        # --- TAB: REPORTES / HISTORIAL ---
+        self.tab_reportes = QWidget()
+        self.layout_rep = QVBoxLayout(self.tab_reportes)
+        
+        self.label_historial = QLabel("Historial de Ventas Recientes")
+        self.label_historial.setProperty("class", "Subtitle")
+        self.layout_rep.addWidget(self.label_historial)
+        
+        self.tabla_historial_ventas = QTableWidget(0, 5)
+        self.tabla_historial_ventas.setHorizontalHeaderLabels(["ID Venta", "Fecha", "Total", "Cajero", "Cliente"])
+        self.tabla_historial_ventas.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.tabla_historial_ventas.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.tabla_historial_ventas.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.layout_rep.addWidget(self.tabla_historial_ventas)
+        
+        self.label_rep = QLabel("Exportar Reportes (Excel)")
+        self.label_rep.setProperty("class", "Subtitle")
+        self.layout_rep.addWidget(self.label_rep)
+        
+        self.grid_rep = QHBoxLayout()
+        self.grid_rep.setSpacing(10)
+        self.btn_rep_ventas = QPushButton("📊 Ventas")
+        self.grid_rep.addWidget(self.btn_rep_ventas)
+        self.btn_rep_inventario = QPushButton("📋 Inventario")
+        self.grid_rep.addWidget(self.btn_rep_inventario)
+        self.btn_rep_clientes = QPushButton("👥 Clientes")
+        self.grid_rep.addWidget(self.btn_rep_clientes)
+        self.btn_rep_empleados = QPushButton("👔 Empleados")
+        self.grid_rep.addWidget(self.btn_rep_empleados)
+        self.btn_rep_logs = QPushButton("📝 Logs")
+        self.grid_rep.addWidget(self.btn_rep_logs)
+        
+        self.layout_rep.addLayout(self.grid_rep)
+        self.tab_widget.addTab(self.tab_reportes, "📈 Reportes e Historial")
 
-        self.label_r_inventario_administracion_reportes = QLabel(self.gridLayoutWidget)
-        self.label_r_inventario_administracion_reportes.setObjectName(u"label_r_inventario_administracion_reportes")
-
-        self.verticalLayout.addWidget(self.label_r_inventario_administracion_reportes)
-
-        self.verticalLayout_3 = QVBoxLayout()
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.b_r_ventas_administracion_reportes = QPushButton(self.gridLayoutWidget)
-        self.b_r_ventas_administracion_reportes.setObjectName(u"b_r_ventas_administracion_reportes")
-        self.b_r_ventas_administracion_reportes.setStyleSheet(u"background-color: rgb(217, 217, 217);")
-        icon1 = QIcon()
-        icon1.addFile(u"../../images/business_16503868.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.b_r_ventas_administracion_reportes.setIcon(icon1)
-        self.b_r_ventas_administracion_reportes.setIconSize(QSize(80, 80))
-
-        self.verticalLayout_3.addWidget(self.b_r_ventas_administracion_reportes)
-
-        self.label_r_ventas_administracion_reportes = QLabel(self.gridLayoutWidget)
-        self.label_r_ventas_administracion_reportes.setObjectName(u"label_r_ventas_administracion_reportes")
-
-        self.verticalLayout_3.addWidget(self.label_r_ventas_administracion_reportes)
-
-
-        self.verticalLayout.addLayout(self.verticalLayout_3)
-
-
-        self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
-
-        self.verticalLayout_2 = QVBoxLayout()
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.b_r_clientes_administracion_reportes = QPushButton(self.gridLayoutWidget)
-        self.b_r_clientes_administracion_reportes.setObjectName(u"b_r_clientes_administracion_reportes")
-        self.b_r_clientes_administracion_reportes.setStyleSheet(u"background-color: rgb(217, 217, 217);")
-        icon2 = QIcon()
-        icon2.addFile(u"../../images/team_18696096.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.b_r_clientes_administracion_reportes.setIcon(icon2)
-        self.b_r_clientes_administracion_reportes.setIconSize(QSize(80, 80))
-
-        self.verticalLayout_2.addWidget(self.b_r_clientes_administracion_reportes)
-
-        self.label_r_clientes_administracion_reportes = QLabel(self.gridLayoutWidget)
-        self.label_r_clientes_administracion_reportes.setObjectName(u"label_r_clientes_administracion_reportes")
-
-        self.verticalLayout_2.addWidget(self.label_r_clientes_administracion_reportes)
-
-        self.verticalLayout_4 = QVBoxLayout()
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.b_r_empleados_administracion_reportes = QPushButton(self.gridLayoutWidget)
-        self.b_r_empleados_administracion_reportes.setObjectName(u"b_r_empleados_administracion_reportes")
-        self.b_r_empleados_administracion_reportes.setStyleSheet(u"background-color: rgb(217, 217, 217);")
-        icon3 = QIcon()
-        icon3.addFile(u"../../images/resume_18928734.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.b_r_empleados_administracion_reportes.setIcon(icon3)
-        self.b_r_empleados_administracion_reportes.setIconSize(QSize(80, 80))
-
-        self.verticalLayout_4.addWidget(self.b_r_empleados_administracion_reportes)
-
-        self.label_r_empleados_administracion_reportes = QLabel(self.gridLayoutWidget)
-        self.label_r_empleados_administracion_reportes.setObjectName(u"label_r_empleados_administracion_reportes")
-
-        self.verticalLayout_4.addWidget(self.label_r_empleados_administracion_reportes)
-
-
-        self.verticalLayout_2.addLayout(self.verticalLayout_4)
-
-
-        self.gridLayout.addLayout(self.verticalLayout_2, 0, 1, 1, 1)
-
-
-        self.retranslateUi(Form)
-
-        QMetaObject.connectSlotsByName(Form)
-    # setupUi
-
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.b_r_inventario_administracion_reportes.setText("")
-        self.label_r_inventario_administracion_reportes.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Reporte de inventario </span></p></body></html>", None))
-        self.b_r_ventas_administracion_reportes.setText("")
-        self.label_r_ventas_administracion_reportes.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Reporte de ventas</span></p></body></html>", None))
-        self.b_r_clientes_administracion_reportes.setText("")
-        self.label_r_clientes_administracion_reportes.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Reporte clientes</span></p></body></html>", None))
-        self.b_r_empleados_administracion_reportes.setText("")
-        self.label_r_empleados_administracion_reportes.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Reporte de empleados</span></p></body></html>", None))
-    # retranslateUi
-
+        self.main_layout.addWidget(self.tab_widget)
