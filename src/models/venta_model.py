@@ -1,6 +1,6 @@
 # venta_model && detalle_venta_model
-from src.database.connection import get_connection
-from src.models.producto_model import actualizar_stock
+from database.connection import get_connection
+from models.producto_model import actualizar_stock
 
 def registrar_venta(datos: dict):
     """
@@ -18,11 +18,12 @@ def registrar_venta(datos: dict):
         sql_prompt = "INSERT INTO ventas (id_usuario, id_cliente, total) VALUES (?, ?, ?)"
         values = (datos["id_usuario"], datos.get("id_cliente"), datos["total"])
         cursor.execute(sql_prompt, values)
+        id_venta = cursor.lastrowid
         conexion.commit()
     except Exception as e:
         return (False, f"Error: {e}")
     else:
-        return (True, None)
+        return (True, id_venta)
 
 def registrar_venta_transaccional(id_venta: int, detalles: list[dict]):
     """

@@ -1,4 +1,4 @@
-from src.database.connection import get_connection
+from database.connection import get_connection
 
 def registrar_log(datos: dict):
     """
