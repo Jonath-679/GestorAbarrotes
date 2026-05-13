@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         self.sidebar_layout.setSpacing(10)
         
         # Logo o Titulo
-        self.label_bienvenido_mainwindow = QLabel("Abarrotesv v1.0")
+        self.label_bienvenido_mainwindow = QLabel("Abarrotes JLJ v1.0")
         self.label_bienvenido_mainwindow.setProperty("class", "Title")
         self.label_bienvenido_mainwindow.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.sidebar_layout.addWidget(self.label_bienvenido_mainwindow)
